@@ -1,0 +1,15 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Hello') {
+            steps {
+                mkdir osama
+                cd osama
+                touch osos
+                ls osama
+                echo 'job done by osama'
+            }
+        }
+    }
+}
