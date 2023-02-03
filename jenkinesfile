@@ -4,10 +4,10 @@ pipeline {
     stages {
         stage('Hello') {
             steps {
-                mkdir osama
-                cd osama
-                touch osos
-                ls osama
+               sh 'mkdir osama'
+               sh 'cd osama'
+               sh 'touch osos'
+               sh 'ls osama'
                 echo 'job done by osama'
             }
         }
