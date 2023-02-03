@@ -1,0 +1,6 @@
+node {
+    stage('Hello') {
+        sh 'ls'
+        echo 'job done by osama scripted way'
+    }
+}
