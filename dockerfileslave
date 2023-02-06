@@ -1,0 +1,20 @@
+FROM ubuntu
+USER root
+RUN mkdir jenkins
+RUN chmod 777 /jenkins
+RUN apt update -y
+RUN apt install openjdk-11-jdk -y
+RUN apt-get install openssh-server -qq
+RUN useradd -ms /bin/bash jenkins
+
+## INSTALL DOCKER CLIENT
+# Update the package index
+RUN apt-get update
+
+# Install the Docker client
+RUN apt-get install -y docker.io
+RUN apt install openssh-client -y
+# Verify the Docker client installation
+RUN docker --version
+
+CMD [ "/bin/bash" ]

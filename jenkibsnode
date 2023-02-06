@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('CI') {
+            steps {
+                // Get code a GitHub repository
+                git 'https://github.com/mahmoud254/jenkins_nodejs_example.git'
+                withCredentials([usernamePassword(credentialsId: 'mydockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+
+                
+                sh """
+                    docker login -u ${USER} -p ${PASS}
+                    docker build . -f dockerfile -t osamahassan/nodejsapp
+                    docker push osamahassan/nodejsapp
+                   """
+                }
+            }
+        }
+        
+        stage('CD') {
+            steps {
+            
+                git 'https://github.com/mahmoud254/jenkins_nodejs_example.git'
+                withCredentials([usernamePassword(credentialsId: 'mydockerhub', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
+
+            
+                sh """
+                    docker login -u ${USER} -p ${PASS}
+                    docker run -d -p 3000:3000 nodejsapp
+                   """
+                }
+            }
+
+            
+        }
+        
+    }
+}
